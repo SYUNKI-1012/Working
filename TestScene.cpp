@@ -1,5 +1,8 @@
 #include "TestScene.h"
 #include "Player.h"
+#include "Ground.h"
+#include "Engine//Camera.h"
+
 //コンストラクタ
 TestScene::TestScene(GameObject * parent)
 	: GameObject(parent, "TestScene")
@@ -11,6 +14,9 @@ void TestScene::Initialize()
 {	
 	//pWp = Instantiate<Weapon>(this);
 	Instantiate <Player>(this);
+	Instantiate<Ground>(this);
+	Camera::SetPosition({ 0, 10, -20 });
+	Camera::SetTarget({ 0, 0, 0 });
 
 }
 

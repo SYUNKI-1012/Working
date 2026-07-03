@@ -6,7 +6,8 @@
 class Player :
     public GameObject
 {
-	int hSilly;
+	int hWalkModel_; //歩きモーション
+	int hIdleModel_; //アイドルモーション
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
