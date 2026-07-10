@@ -1,12 +1,12 @@
 #pragma once
 #include "Engine/GameObject.h"
-
-
+#include <vector>
 
 class Ground :
 	public GameObject
 {
-	int hSilly;
+	
+	//vector< vector<int>> mapData;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -14,7 +14,7 @@ public:
 
 	//初期化
 	void Initialize() override;
-
+	std::vector<std::vector<int>> GetMapData() { return mapData_; }
 	//更新
 	void Update() override;
 
@@ -23,5 +23,8 @@ public:
 
 	//開放
 	void Release() override;
+private:
+	int hModel_;
+	std::vector<std::vector<int>> mapData_;
 };
 

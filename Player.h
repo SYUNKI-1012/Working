@@ -1,13 +1,11 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-
+class Ground; //前方宣言
 
 class Player :
     public GameObject
 {
-	int hWalkModel_; //歩きモーション
-	int hIdleModel_; //アイドルモーション
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -24,5 +22,10 @@ public:
 
 	//開放
 	void Release() override;
+	void SetGround(Ground* ground) { ground_ = ground; }
+private:
+	int hWalkModel_; //歩きモーション
+	int hIdleModel_; //アイドルモーション
+	Ground* ground_; //地面オブジェクトのポインタ
 };
 

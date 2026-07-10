@@ -3,6 +3,7 @@
 #include "Engine/Debug.h"
 #include "TestScene.h"
 #include "Engine/Input.h"
+#include "Ground.h"
 
 namespace
 {
@@ -48,6 +49,7 @@ namespace
 		return angle;
 	}
 
+	std::vector<std::vector<int>> gmap;
 }
 
 
@@ -60,12 +62,20 @@ Player::Player(GameObject* parent)
 
 void Player::Initialize()
 {
-	hWalkModel_ = Model::Load("Walking.fbx");
+	hWalkModel_ = Model::Load("Walking2.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 59, 1.0);
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 117, 1.0);
 
+	if (ground_ != nullptr)
+	{
+		gmap = ground_->GetMapData();
+	}
+	else
+	{
+		Debug::Log("Ground is not set for Player.");
+	}
 
 }
 
@@ -160,8 +170,21 @@ void Player::Update()
 		angle = P_ANGLE[pdirection];
 		transform_.rotate_.y = angle;
 	}
+
 	pos = pos + SPEED * move;
 	XMStoreFloat3(&transform_.position_, pos);
+	XMFLOAT3 wpos = transform_.position_;
+	//壁オブジェクトに食い込んでたら戻す！
+	gmap = ground_->GetMapData();
+	//マップの座標に変換する、めり込んだら戻す。
+	int mapX = (int)((wpos.x) + 10) / 2;
+	int mapZ = (int)(10 - (wpos.z)) / 2;
+	if (gmap[mapZ][mapX] == 1)
+	{
+		pos = pos - SPEED * move;
+		XMStoreFloat3(&transform_.position_, pos);
+	}
+	
 	//pos = XMVectorAdd(pos, SPEED*move);
 }
 
