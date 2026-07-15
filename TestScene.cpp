@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Ground.h"
 #include "Engine//Camera.h"
+#include "Esa.h"
 
 //コンストラクタ
 TestScene::TestScene(GameObject * parent)
@@ -15,7 +16,9 @@ void TestScene::Initialize()
 	//pWp = Instantiate<Weapon>(this);
 	Player* pPlayer = Instantiate <Player>(this);
 	Ground* pGround = Instantiate<Ground>(this);
+	Esa* pEsa = Instantiate<Esa>(this);
 	pPlayer->SetGround(pGround);
+	
 	
 
 	Camera::SetPosition({ 0, 10, -20 });
