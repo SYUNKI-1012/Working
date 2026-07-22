@@ -21,6 +21,7 @@ public:
     void Release() override;
     void SetFoodType(FoodType type);
     void OnCollision(GameObject* pTarget) override;
+    
 private:
     FoodType type_;
     int hModel_;
