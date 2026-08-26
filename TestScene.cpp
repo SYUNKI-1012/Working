@@ -1,9 +1,16 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "TestScene.h"
 #include "Player.h"
 #include "Ground.h"
 #include "Engine//Camera.h"
 #include "Food.h"
 #include "Engine/Text.h"
+
+
+namespace
+{
+	Ground* pGround;
+}
 
 //コンストラクタ
 TestScene::TestScene(GameObject * parent)
@@ -43,8 +50,17 @@ void TestScene::Update()
 void TestScene::Draw()
 {
 	std::string scrText;
-	scrText = "SCORE:" + std::to_string(myScore);
-	pText_->Draw(20, 20, scrText.c_str());
+	char buffer[256];
+	sprintf(buffer, "%010d", myScore);
+	scrText = "SCORE:" + std::string(buffer);
+	pText_->Draw(500, 50, scrText.c_str());
+	int esaCount, normalEsaCount, powerEsaCount;
+	std::tuple<int, int, int> esa = pGround->GetEsaCount();
+	esaCount = std::get<0>(esa);
+	normalEsaCount = std::get<1>(esa);
+	powerEsaCount = std::get<2>(esa);
+	std::string EsaString = "NOEMAL ESA:" + std::to_string(normalEsaCount) + " POWER ESA:" + std::to_string(powerEsaCount);
+	pText_->Draw(500, 100, EsaString.c_str());
 }
 
 //開放

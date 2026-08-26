@@ -22,6 +22,7 @@ public:
 
 	//ŠJ•ú
 	void Release() override;
+	void AddScore(int score) { myScore += score; }
 private:
 	Text* pText_;
 	int myScore;

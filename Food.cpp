@@ -1,5 +1,6 @@
 #include "Food.h"
 #include "Engine/Model.h"
+#include "Engine/SphereCollider.h"
 #include "TestScene.h"
 #include "Ground.h"
 
@@ -50,12 +51,16 @@ void Food::SetFoodType(FoodType type)
 	type_ = type;
 	if (type_ == FoodType::FOODTYPE_NORMAL)
 	{
+		SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.3, 0), 0.3f);
+		AddCollider(collision);
 		hModel_ = Model::Load("Esa.fbx");
 		score_ = 1;
 	}
 	else if (type_ == FoodType::FOODTYPE_POWER)
 	{
-		hModel_ = Model::Load("");
+		SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.6, 0), 0.6f);
+		AddCollider(collision);
+		hModel_ = Model::Load("PowerEsa.fbx");
 		score_ = 5;
 	}
 }
@@ -63,11 +68,11 @@ void Food::SetFoodType(FoodType type)
 void Food::OnCollision(GameObject* pTarget)
 {
 	TestScene* testScene = dynamic_cast<TestScene*>(GetParent()->GetParent());
-	testScene->AddScore(score_);
+	testScene->AddScore(score_); //スコアを加算
 	Ground* ground = dynamic_cast<Ground*>(FindObject("Ground"));
-	ground->DecEsaCount(type_);
-	if (pTarget->GetObjectName()) == "Player")
+	ground->DecEsaCount(type_); //餌の数を減らす
+	if (pTarget->GetObjectName() == "Player")
 	{
-		Killme();
+		KillMe();
 	}
 }

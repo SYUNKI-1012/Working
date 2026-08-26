@@ -1,11 +1,12 @@
 #include "Ground.h"
 #include "Engine/Model.h"
 #include "Engine/CsvReader.h"
-
+#include "Food.h"
+#include <vector>
 
 namespace
 {
-    int mapData_[10][10] = {};
+    //int mapData_[10][10] = {};
     using std::vector;
     //int model_t = -1;
     //vector< vector<int>> mapData =
@@ -47,26 +48,33 @@ Ground::Ground(GameObject* parent)
     {
         for (int y = 0; y < mapHeight_; y++)
         {
-            mapData_[y][x] = csvData.GetValue(x, y); //CSVの値をmapData_に格納
+            objMap_[y][x] = csvData.GetValue(x, y+mapHeight_); //CSVの値をobjMap_に格納
+            if (objMap_[x][y] > 0)
+            {
+                Food* food = Instantiate<Food>(this);
+                esaCount_++; //餌の数カウント
+                food->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
+                if (objMap_[y][x] == 1)
+                {
+                    food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+                    normalEsaCount_++; //通常餌の数をカウント
+                }
+                else if (objMap_[y][x] == 2)
+                {
+                    food->SetFoodType(FoodType::FOODTYPE_POWER);
+                    powerEsaCount_++; //パワー餌の数をカウント
+                }
+            }
         }
     }
-    for (int x = 0; x < mapWidth_; x++)
-    {
-        for (int y = 0; y < mapHeight_; y++)
-        {
-            objMap_[y][x] = csvData.GetValue(x, y + mapHeight_ -1); //CSVの値をobjMap_に格納
-        }
-    }
-
-
 }
 
 void Ground::Initialize()
 {
     hModel_ = Model::Load("Ground3.fbx");
     hModelt_ = Model::Load("Brock.fbx");
-    hEsaModel_ = Model::Load("Esa.fbx");
-    hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
+   // hEsaModel_ = Model::Load("Esa.fbx");
+   // hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
 
 }
 
