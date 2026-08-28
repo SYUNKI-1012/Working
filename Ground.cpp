@@ -80,7 +80,7 @@ Ground::Ground(GameObject* parent)
 void Ground::Initialize()
 {
     hModel_ = Model::Load("Ground3.fbx");
-    hModelt_ = Model::Load("Brock.fbx");
+    hModelt_ = Model::Load("Brock2.fbx");
     hEsaModel_ = Model::Load("Esa.fbx");
     hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
 
@@ -92,17 +92,23 @@ void Ground::Update()
 
 void Ground::Draw()
 {
+    transform_.position_ = { 0.0f, 0.0f, 2.0f };
+    transform_.rotate_ = { -90.0f, 0.0f, 0.0f };
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
-    for (int j = 0;j < mapHeight_;j++) {
-        for (int i = 0;i < mapWidth_;i++) {
-            if (mapData_[j][i] == 1) {
-                Transform tr;
-                tr.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
-                Model::SetTransform(hModelt_, tr);
-                Model::Draw(hModelt_);
+    for (int j = 0;j < mapHeight_;j++) 
+    {
+        for (int i = 0;i < mapWidth_;i++)
+        {
+            if (mapData_[j][i] == 1) 
+            {
+                    Transform tr;
+                    tr.position_ = { i * 2.0f,(mapHeight_ - 1 - j) * 2.0f, 0.0f };
+                    Model::SetTransform(hModelt_, tr);
+                    Model::Draw(hModelt_);
             }
-            if (objMap_[j][i] == 1) {
+            if (objMap_[j][i] == 1)
+            {
                 Transform tr2;
                 tr2.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
                 tr2.scale_ = { 0.3f, 0.3f, 0.3f };

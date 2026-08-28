@@ -20,16 +20,15 @@ TestScene::TestScene(GameObject * parent)
 
 //‰Šú‰»
 void TestScene::Initialize()
-{	
+{
 	//pWp = Instantiate<Weapon>(this);
 	Player* pPlayer = Instantiate <Player>(this);
 	pGround = Instantiate<Ground>(this);
 	pPlayer->SetGround(pGround);
-	
-	
 
-	Camera::SetPosition({ 0, 10, -20 });
-	Camera::SetTarget({ 0, 0, 0 });
+
+	Camera::SetPosition({transform_.position_.x,transform_.position_.y + 8.0f,transform_.position_.z - 15.0f});
+	Camera::SetTarget({transform_.position_.x,transform_.position_.y,transform_.position_.z});
 
 	pText_ = new Text;
 	pText_->Initialize();
