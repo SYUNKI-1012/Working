@@ -23,7 +23,7 @@ void TestScene::Initialize()
 {	
 	//pWp = Instantiate<Weapon>(this);
 	Player* pPlayer = Instantiate <Player>(this);
-	Ground* pGround = Instantiate<Ground>(this);
+	pGround = Instantiate<Ground>(this);
 	pPlayer->SetGround(pGround);
 	
 	

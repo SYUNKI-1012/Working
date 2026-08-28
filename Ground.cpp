@@ -6,8 +6,9 @@
 
 namespace
 {
-    //int mapData_[10][10] = {};
     using std::vector;
+    //int mapData_[10][10] = {};
+    
     //int model_t = -1;
     //vector< vector<int>> mapData =
     //{
@@ -48,8 +49,15 @@ Ground::Ground(GameObject* parent)
     {
         for (int y = 0; y < mapHeight_; y++)
         {
+            mapData_[y][x] = csvData.GetValue(x, y); //csvの値をmapData_に格納
+        }
+    }
+    for (int x = 0; x < mapWidth_; x++)
+    {
+        for (int y = 0; y < mapHeight_; y++)
+        {
             objMap_[y][x] = csvData.GetValue(x, y+mapHeight_); //CSVの値をobjMap_に格納
-            if (objMap_[x][y] > 0)
+            if (objMap_[y][x] > 0)
             {
                 Food* food = Instantiate<Food>(this);
                 esaCount_++; //餌の数カウント
@@ -73,8 +81,8 @@ void Ground::Initialize()
 {
     hModel_ = Model::Load("Ground3.fbx");
     hModelt_ = Model::Load("Brock.fbx");
-   // hEsaModel_ = Model::Load("Esa.fbx");
-   // hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
+    hEsaModel_ = Model::Load("Esa.fbx");
+    hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
 
 }
 
@@ -86,8 +94,8 @@ void Ground::Draw()
 {
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
-    for (int j = 0;j < 10;j++) {
-        for (int i = 0;i < 10;i++) {
+    for (int j = 0;j < mapHeight_;j++) {
+        for (int i = 0;i < mapWidth_;i++) {
             if (mapData_[j][i] == 1) {
                 Transform tr;
                 tr.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };

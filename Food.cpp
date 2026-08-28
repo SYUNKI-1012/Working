@@ -23,7 +23,7 @@ void Food::Initialize()
 	}
 	else if (type_ == FoodType::FOODTYPE_POWER)
 	{
-		hModel_ = Model::Load("");
+		hModel_ = Model::Load("PowerEsa.fbx");
 		score_ = 5;
 	}
 }

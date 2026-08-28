@@ -68,14 +68,14 @@ void Player::Initialize()
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 117, 1.0);
 
-	if (ground_ != nullptr)
-	{
-		gmap = ground_->GetMapData();
-	}
-	else
-	{
-		Debug::Log("Ground is not set for Player.");
-	}
+	//if (ground_ != nullptr)
+	//{
+	//	gmap = ground_->GetMapData();
+	//}
+	//else
+	//{
+	//	Debug::Log("Ground is not set for Player.");
+	//}
 
 }
 
