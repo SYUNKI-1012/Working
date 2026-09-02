@@ -81,8 +81,8 @@ void Ground::Initialize()
 {
     hModel_ = Model::Load("Ground3.fbx");
     hModelt_ = Model::Load("Brock2.fbx");
-    hEsaModel_ = Model::Load("Esa.fbx");
-    hPowerEsaModel_ = Model::Load("PowerEsa.fbx");
+    //hEsaModel_ = Model::Load("Esa.fbx");
+    //owerEsaModel_ = Model::Load("PowerEsa.fbx");
 
 }
 
@@ -98,33 +98,35 @@ void Ground::Draw()
     Model::Draw(hModel_);
     for (int j = 0;j < mapHeight_;j++) 
     {
-        for (int i = 0;i < mapWidth_;i++)
+        for (int i = 0; i < mapWidth_; i++)
         {
-            if (mapData_[j][i] == 1) 
+            if (mapData_[j][i] == 1)
             {
-                    Transform tr;
-                    tr.position_ = { i * 2.0f,(mapHeight_ - 1 - j) * 2.0f, 0.0f };
-                    Model::SetTransform(hModelt_, tr);
-                    Model::Draw(hModelt_);
-            }
-            if (objMap_[j][i] == 1)
-            {
-                Transform tr2;
-                tr2.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
-                tr2.scale_ = { 0.3f, 0.3f, 0.3f };
-                Model::SetTransform(hEsaModel_, tr2);
-                Model::Draw(hEsaModel_);
-            }
-            else if (objMap_[j][i] == 2)
-            {
-                static Transform tr2;
-                tr2.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
-                tr2.scale_ = { 0.3f, 0.3f, 0.3f };
-                tr2.rotate_.y += 1.0f;
-                Model::SetTransform(hPowerEsaModel_, tr2);
-                Model::Draw(hPowerEsaModel_);
+                Transform tr;
+                tr.position_ = { i * 2.0f, 0.0f, (mapHeight_ - 1 - j) * 2.0f};
+
+                Model::SetTransform(hModelt_, tr);
+                Model::Draw(hModelt_);
             }
         }
+            //if (objMap_[j][i] == 1)
+            //{
+            //    Transform tr2;
+            //    tr2.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
+            //    tr2.scale_ = { 0.3f, 0.3f, 0.3f };
+            //    Model::SetTransform(hEsaModel_, tr2);
+            //    Model::Draw(hEsaModel_);
+            //}
+            //else if (objMap_[j][i] == 2)
+            //{
+            //    static Transform tr2;
+            //    tr2.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
+            //    tr2.scale_ = { 0.3f, 0.3f, 0.3f };
+            //    tr2.rotate_.y += 1.0f;
+            //    Model::SetTransform(hPowerEsaModel_, tr2);
+            //    Model::Draw(hPowerEsaModel_);
+            //}
+        
     }
 }
 

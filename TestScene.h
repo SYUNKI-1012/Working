@@ -1,9 +1,12 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Model.h"
+#include "Player.h"
 
 class Text;
 //テストシーンを管理するクラス
+class Player;
+
 class TestScene : public GameObject
 {
 public:
@@ -24,6 +27,7 @@ public:
 	void Release() override;
 	void AddScore(int score) { myScore += score; }
 private:
+	Player* pPlayer_;
 	Text* pText_;
 	int myScore;
 };

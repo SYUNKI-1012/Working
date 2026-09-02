@@ -37,6 +37,7 @@ public:
 			powerEsaCount_--;
 		}
 	}
+	int GetMapHeight() const{	return mapHeight_; }
 
 private:
 	int hModel_;

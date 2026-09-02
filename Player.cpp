@@ -68,6 +68,14 @@ void Player::Initialize()
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 117, 1.0);
 
+	transform_.position_ =
+	{
+		2.0f,
+		0.0f,
+		4.0f
+	};
+
+
 	//if (ground_ != nullptr)
 	//{
 	//	gmap = ground_->GetMapData();
@@ -115,16 +123,16 @@ void Player::Update()
 			pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
 			pstate = PLAYER_STATE::PLAYER_WALK;
 		}
-		if (Input::IsKey(DIK_UP))
-		{
-			pdirection = PLAYER_DIRECTION::PLAYER_UP;
-			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
-		if (Input::IsKey(DIK_DOWN))
-		{
-			pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
-			pstate = PLAYER_STATE::PLAYER_WALK;
-		}
+		//if (Input::IsKey(DIK_UP))
+		//{
+		//	pdirection = PLAYER_DIRECTION::PLAYER_UP;
+		//	pstate = PLAYER_STATE::PLAYER_WALK;
+		//}
+		//if (Input::IsKey(DIK_DOWN))
+		//{
+		//	pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
+		//	pstate = PLAYER_STATE::PLAYER_WALK;
+		//}
 	}
 	if (oldDir != pdirection)
 	{
@@ -177,12 +185,15 @@ void Player::Update()
 	//壁オブジェクトに食い込んでたら戻す！
 	gmap = ground_->GetMapData();
 	//マップの座標に変換する、めり込んだら戻す。
-	int mapX = (int)((wpos.x) + 10) / 2;
-	int mapZ = (int)(10 - (wpos.z)) / 2;
-	if (gmap[mapZ][mapX] == 1)
+	int mapX = (int)(wpos.x / 2.0f);
+	int mapY = (ground_->GetMapHeight() - 1)- (int)(wpos.z / 2.0f);
+	if (mapY >= 0 && mapY < gmap.size() &&mapX >= 0 && mapX < gmap[0].size())
 	{
-		pos = pos - SPEED * move;
-		XMStoreFloat3(&transform_.position_, pos);
+		if (gmap[mapY][mapX] == 1)
+		{
+			pos = pos - SPEED * move;
+			XMStoreFloat3(&transform_.position_, pos);
+		}
 	}
 	
 	//pos = XMVectorAdd(pos, SPEED*move);

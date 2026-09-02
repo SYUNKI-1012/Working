@@ -22,13 +22,13 @@ TestScene::TestScene(GameObject * parent)
 void TestScene::Initialize()
 {
 	//pWp = Instantiate<Weapon>(this);
-	Player* pPlayer = Instantiate <Player>(this);
+	pPlayer_ = Instantiate <Player>(this);
 	pGround = Instantiate<Ground>(this);
-	pPlayer->SetGround(pGround);
+	pPlayer_  ->SetGround(pGround);
 
 
-	Camera::SetPosition({transform_.position_.x,transform_.position_.y + 8.0f,transform_.position_.z - 15.0f});
-	Camera::SetTarget({transform_.position_.x,transform_.position_.y,transform_.position_.z});
+	Camera::SetPosition({ 0.0f, -20.0f, 8.0f });
+	Camera::SetTarget({ 5.0f, 0.0f, 4.0f });
 
 	pText_ = new Text;
 	pText_->Initialize();
@@ -38,6 +38,9 @@ void TestScene::Initialize()
 //更新
 void TestScene::Update()
 {
+	XMFLOAT3 pos = pPlayer_->GetPosition();
+	Camera::SetPosition( { pos.x, 5.0f, pos.z  - 15.0f });
+	Camera::SetTarget( { pos.x, 5.0f, pos.z });
 }
 
 //餌を数えて、残り餌数を表示
